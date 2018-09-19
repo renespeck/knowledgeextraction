@@ -1,0 +1,5 @@
+ select ?o where {
+ OPTIONAL{
+<%s> owl:equivalentProperty ?o.
+}
+}

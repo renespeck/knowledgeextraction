@@ -1,0 +1,17 @@
+select distinct ?r ?label {
+	{
+		SELECT ?r ?label {
+		    ?r rdfs:label ?label
+		}
+	} UNION {
+		SELECT ?r ?label {
+		    ?r dbp:name ?label
+		}
+	} UNION {
+		SELECT ?r ?label {
+		    ?r foaf:name ?label
+		}
+		
+	}
+        FILTER ((lang(?label) = 'en') && (%s))
+}

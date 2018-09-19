@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.aksw.simba.knowledgeextraction</groupId>
+		<artifactId>knowledgeextraction-parent</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>commons</artifactId>
+	 
+	<properties>
+		<system.libs>${project.basedir}/lib</system.libs>
+		<httpcomponents.version>4.4</httpcomponents.version>
+		<stanford.version>3.6.0</stanford.version>
+	</properties>
+		
+	<dependencies>
+		<!-- httpcomponents -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>${httpcomponents.version}</version>
+		</dependency>
+		<dependency>
+			<!-- -->
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpcomponents.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		    <version>4.2</version>
+		</dependency>
+		<!-- --> 
+		<!-- wordnet -->
+		<dependency>
+			<groupId>wordnet</groupId>
+			<artifactId>rita</artifactId>
+			<version>0.0.1</version>
+			<scope>system</scope>
+			<systemPath>${system.libs}/wordnet/rita.jar</systemPath>
+		</dependency>
+				<!-- jena-sparql-api -->
+
+		<dependency>
+		    <groupId>org.aksw.jena-sparql-api</groupId>
+		    <artifactId>jena-sparql-api-core</artifactId>
+		    <version>3.7.0-3</version>
+		</dependency>
+			<!-- stanford -->
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>${stanford.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>${stanford.version}</version>
+			<classifier>models</classifier>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-parser</artifactId>
+			<version>${stanford.version}</version>
+			<classifier>models</classifier>
+		</dependency>
+		<!-- fixes  java.lang.NoClassDefFoundError: org/w3c/dom/ElementTraversal using Jena -->
+		<!-- there is another solution? -->
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
+		</dependency>
+	</dependencies>
+
+</project>
