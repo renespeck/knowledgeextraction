@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -7,7 +8,7 @@
 	<artifactId>knowledgeextraction-parent</artifactId>
 	<version>0.0.1</version>
 	<packaging>pom</packaging>
-	
+
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -17,16 +18,15 @@
 		<!-- versions -->
 		<junit.version>4.12</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-        
-        <!-- TEST skip-->
-        <maven.test.skip>true</maven.test.skip>
+
+		<!-- TEST skip -->
+		<maven.test.skip>true</maven.test.skip>
 	</properties>
 
 	<modules>
+
 		<module>common</module>
-		<module>lykoi</module>
-		<module>ocelot</module>
-		<module>fox</module>
+		<!-- <module>lykoi</module> <module>ocelot</module> <module>fox</module> -->
 	</modules>
 
 	<repositories>
@@ -36,8 +36,7 @@
 			<url>http://repo.maven.apache.org/maven2</url>
 		</repository>
 	</repositories>
-    
- 
+
 	<dependencies>
 		<!-- test -->
 		<dependency>
@@ -51,15 +50,15 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		
+
 
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-<dependency>
-    <groupId>commons-io</groupId>
-    <artifactId>commons-io</artifactId>
-    <version>2.5</version>
-</dependency>
-		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+
 		<!-- jsoup -->
 		<dependency>
 			<groupId>org.json</groupId>

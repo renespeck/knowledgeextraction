@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -7,13 +8,14 @@
 		<version>0.0.1</version>
 	</parent>
 	<artifactId>commons</artifactId>
-	 
+
 	<properties>
-		<system.libs>${project.basedir}/lib</system.libs>
+		<!-- <system.libs>${project.basedir}/lib</system.libs> -->
+		<system.resources>${project.basedir}/src/main/resources</system.resources>
 		<httpcomponents.version>4.4</httpcomponents.version>
 		<stanford.version>3.6.0</stanford.version>
 	</properties>
-		
+
 	<dependencies>
 		<!-- httpcomponents -->
 		<dependency>
@@ -30,27 +32,27 @@
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-collections4</artifactId>
-		    <version>4.2</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.2</version>
 		</dependency>
-		<!-- --> 
+
 		<!-- wordnet -->
 		<dependency>
 			<groupId>wordnet</groupId>
 			<artifactId>rita</artifactId>
 			<version>0.0.1</version>
 			<scope>system</scope>
-			<systemPath>${system.libs}/wordnet/rita.jar</systemPath>
+			<systemPath>${system.resources}/wordnet/rita.jar</systemPath>
 		</dependency>
-				<!-- jena-sparql-api -->
+		<!-- jena-sparql-api -->
 
 		<dependency>
-		    <groupId>org.aksw.jena-sparql-api</groupId>
-		    <artifactId>jena-sparql-api-core</artifactId>
-		    <version>3.7.0-3</version>
+			<groupId>org.aksw.jena-sparql-api</groupId>
+			<artifactId>jena-sparql-api-core</artifactId>
+			<version>3.7.0-3</version>
 		</dependency>
-			<!-- stanford -->
+		<!-- stanford -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
@@ -68,7 +70,8 @@
 			<version>${stanford.version}</version>
 			<classifier>models</classifier>
 		</dependency>
-		<!-- fixes  java.lang.NoClassDefFoundError: org/w3c/dom/ElementTraversal using Jena -->
+		<!-- fixes java.lang.NoClassDefFoundError: org/w3c/dom/ElementTraversal 
+			using Jena -->
 		<!-- there is another solution? -->
 		<dependency>
 			<groupId>xml-apis</groupId>
