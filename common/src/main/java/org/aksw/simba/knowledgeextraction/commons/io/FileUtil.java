@@ -86,7 +86,7 @@ public class FileUtil {
         .filter(Files::isRegularFile)//
         .map(Path::toAbsolutePath)//
         .collect(Collectors.toSet()//
-    );
+        );
   }
 
   /**
@@ -191,7 +191,7 @@ public class FileUtil {
   public static List<String> fileToList(final Path pathToFile, final String encoding,
       final String commentSymbol) throws IOException {
     final BufferedReader br = getBufferedReader(pathToFile, encoding);
-    final List<String> results = new ArrayList<String>();
+    final List<String> results = new ArrayList<>();
     String line;
     while ((line = br.readLine()) != null) {
       if (commentSymbol.isEmpty()) {
@@ -210,7 +210,7 @@ public class FileUtil {
       return fileToList(pathToFile, encoding, commentSymbol);
     } catch (final IOException e) {
       LOG.error(e.getLocalizedMessage(), e);
-      return new ArrayList<String>();
+      return new ArrayList<>();
     }
   }
 
@@ -262,6 +262,95 @@ public class FileUtil {
    */
   public static boolean fileExists(final Path path) {
     if (Files.exists(path) && !Files.isDirectory(path) && Files.isReadable(path)) {
+      return true;
+    }
+    return false;
+  }
+
+
+  /**
+   * Opens a BufferedReader to read a file.
+   *
+   * @param pathToFile path to the file
+   * @return BufferedReader
+   */
+  public static BufferedReader openFileToRead(final String pathToFile) {
+    return openFileToRead(pathToFile, "UTF-8");
+  }
+
+  /**
+   * Opens a BufferedReader to read a file.
+   *
+   * @param pathToFile path to the file
+   * @param encoding used encoding (e.g.,"UTF-8")
+   * @return BufferedReader
+   */
+  public static BufferedReader openFileToRead(final String pathToFile, final String encoding) {
+    try {
+      return Files.newBufferedReader(new File(pathToFile).toPath(), Charset.forName(encoding));
+    } catch (final Exception e) {
+      LOG.error(e.getLocalizedMessage(), e);
+      return null;
+    }
+  }
+
+
+  /**
+   * Reads a file to List.
+   *
+   * @param pathToFile path to the used file
+   * @return list of lines
+   */
+  public static List<String> fileToList(final String pathToFile) {
+    return fileToList(pathToFile, "UTF-8", "");
+  }
+
+  /**
+   * Reads a file to List.
+   *
+   * @param pathToFile path to the used file
+   * @param encoding used encoding (e.g.,"UTF-8")
+   * @param commentSymbol a line in the given file starting with the commentSymbole will be ignored
+   * @return list of lines
+   */
+  public static List<String> fileToList(final String pathToFile, final String encoding,
+      final String commentSymbol) {
+    return read(openFileToRead(pathToFile, encoding), commentSymbol);
+  }
+
+  public static List<String> read(final BufferedReader br) {
+    return read(br, "");
+
+  }
+
+  public static List<String> read(final BufferedReader br, final String commentSymbol) {
+    final List<String> results = new ArrayList<>();
+    try {
+      String line;
+      while ((line = br.readLine()) != null) {
+        if (!commentSymbol.isEmpty() && line.startsWith(commentSymbol)) {
+
+        } else {
+          results.add(line);
+        }
+      }
+      br.close();
+    } catch (final IOException e) {
+      LOG.error("\n", e);
+    }
+    return results;
+
+  }
+
+  /**
+   * Checks if a file exists.
+   *
+   * @param file
+   * @return true if the file exists.
+   */
+  public static boolean fileExists(final File file) {
+    if (file.exists() && !file.isDirectory()) {
+      LOG.debug("File " + file.toString() + " exists.");
       return true;
     }
     return false;
