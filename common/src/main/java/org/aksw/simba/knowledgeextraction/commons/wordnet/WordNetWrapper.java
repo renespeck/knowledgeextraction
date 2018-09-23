@@ -35,6 +35,16 @@ public class WordNetWrapper {
       PartOfSpeech.NOUN_PROPER_SINGULAR));
 
   /**
+   *
+   * Constructor.
+   *
+   * @param wordNet directory
+   */
+  public WordNetWrapper(final String wordNet) {
+    wordnet = new RiWordNet(wordNet);
+  }
+
+  /**
    * Get n synonyms.
    *
    * @param word
@@ -59,15 +69,7 @@ public class WordNetWrapper {
     return synonyms;
   }
 
-  /**
-   *
-   * Constructor.
-   *
-   * @param wordNet directory
-   */
-  public WordNetWrapper(final String wordNet) {
-    wordnet = new RiWordNet(wordNet);
-  }
+
 
   /**
    * Gets verbs and nouns.
