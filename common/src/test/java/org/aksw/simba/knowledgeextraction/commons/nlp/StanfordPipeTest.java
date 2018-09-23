@@ -5,23 +5,20 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
+import edu.stanford.nlp.pipeline.Annotation;
+
 public class StanfordPipeTest {
+
   public static final Logger LOG = LogManager.getLogger(StanfordPipeTest.class);
 
   @Test
   public void test() {
 
-    // final StanfordPipe stanford = StanfordPipeExtended.getStanfordPipe();
-    final StanfordPipe stanford = StanfordPipe.getStanfordPipe();
-
-    try {
-      Assert.assertTrue(stanford.getSentences().size() > 0);
-    } catch (final Exception e) {
-      LOG.error(e.getLocalizedMessage());
-    }
+    final StanfordPipe stanford = new StanfordPipe();
 
     final String example = "Test sentence.";
-    stanford.process(example);
-    Assert.assertTrue(stanford.getSentences().size() > 0);
+    final Annotation annotation = stanford.process(example);
+
+    Assert.assertTrue(stanford.getSentences(annotation).size() > 0);
   }
 }
