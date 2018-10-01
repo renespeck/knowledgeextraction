@@ -43,7 +43,7 @@
 			<artifactId>rita</artifactId>
 			<version>0.0.1</version>
 			<scope>system</scope>
-			<systemPath>${system.resources}/wordnet/rita.jar</systemPath>
+			<systemPath>${system.resources}/WordNet-3.1/rita.jar</systemPath>
 		</dependency>
 		<!-- jena-sparql-api -->
 
