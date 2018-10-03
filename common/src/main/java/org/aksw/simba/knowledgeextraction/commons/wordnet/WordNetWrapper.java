@@ -34,6 +34,19 @@ public class WordNetWrapper {
       PartOfSpeech.NOUN_PROPER_PLURAL, //
       PartOfSpeech.NOUN_PROPER_SINGULAR));
 
+
+  /**
+   *
+   * Constructor.
+   *
+   * @param wordNet directory
+   */
+  public WordNetWrapper() {
+    final String file = "/WordNet-3.1";
+    final String path = getClass().getResource(file).getPath();
+    wordnet = new RiWordNet(path);
+  }
+
   /**
    *
    * Constructor.

@@ -8,11 +8,42 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 
 public class CollectionUtil {
+  /**
+   * Example code: <code>
+      List<String> stringList = Arrays.asList("1","2","3");
+      List<Integer> integerList = convertList(stringList, s -> Integer.parseInt(s));
+    </code>
+   *
+   * @param from
+   * @param func
+   * @return
+   */
+  public static <T, U> List<U> convertList(final List<T> from, final Function<T, U> func) {
+    return from.stream().map(func).collect(Collectors.toList());
+  }
+
+  /**
+   * example code:<code>
+      String[] stringArr = {"1","2","3"};
+      Double[] doubleArr = convertArray(stringArr, Double::parseDouble, Double[]::new);
+   </code>
+   *
+   * @param from
+   * @param func
+   * @param generator
+   * @return
+   */
+  public static <T, U> U[] convertArray(final T[] from, final Function<T, U> func,
+      final IntFunction<U[]> generator) {
+    return Arrays.stream(from).map(func).toArray(generator);
+  }
 
   public static <T> Set<T> toSet(final T[] objects) {
     return new HashSet<>(Arrays.asList(objects));

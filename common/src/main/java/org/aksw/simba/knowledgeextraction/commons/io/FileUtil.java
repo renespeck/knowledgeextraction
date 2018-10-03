@@ -3,8 +3,10 @@ package org.aksw.simba.knowledgeextraction.commons.io;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.SequenceInputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import com.google.common.base.Charsets;
 
@@ -32,6 +36,85 @@ import com.google.common.base.Charsets;
 public class FileUtil {
 
   public static final Logger LOG = LogManager.getLogger(FileUtil.class);
+
+  /**
+   * Gets all files in the folder and sub folders. Ignores duplicates.
+   *
+   * @param folder
+   * @return files
+   */
+  public static Set<Path> regularFilesInFolder(final String folder) {
+    final Set<Path> path = new HashSet<>();
+    try {
+      Files.walk(Paths.get(folder)).forEach(filePath -> {
+        if (Files.isRegularFile(filePath)) {
+          path.add(filePath.getFileName());
+        }
+      });
+    } catch (final IOException e) {
+      LOG.error(e.getLocalizedMessage(), e);
+    }
+    return path;
+  }
+
+  /**
+   * Reads file.
+   *
+   * @param file
+   * @return content of file or null
+   * @throws ReadToJSONArrayException
+   */
+  public static JSONArray readToJSONArray(final File file) {
+
+    JSONArray ja = null;
+    try {
+      if (Files.isReadable(file.toPath())) {
+        ja = new JSONArray(new String(Files.readAllBytes(file.toPath())));
+      }
+    } catch (JSONException | IOException e) {
+      LOG.error("Couldn't process with parameter: " + file.toString(), e);
+    }
+    return ja;
+  }
+
+  /**
+   * Writes a {@link JSONArray} data object with elements of {@link JSONObject} instances to the
+   * file.
+   *
+   * @param data {@link JSONArray}
+   * @param file to write
+   *
+   * @return success
+   */
+  public static boolean writeFile(final JSONArray data, final File file) {
+    try {
+
+      if (file.getParentFile() != null) {
+        file.getParentFile().mkdirs();
+      }
+      file.createNewFile();
+
+      LOG.info("Write file: " + file.toPath().toString() + " array length:" + data.length());
+
+      final FileOutputStream fos = new FileOutputStream(file);
+      final OutputStreamWriter osw = new OutputStreamWriter(fos);
+      osw.write("[ ");
+      for (int i = 0; i < data.length(); i++) {
+        osw.write(data.getJSONObject(i).toString());
+        if (i < data.length() - 1) {
+          osw.write(", ");
+        }
+      }
+      osw.write(" ]");
+      osw.close();
+      fos.close();
+
+    } catch (final Exception e) {
+      LOG.error("Parameter: " + data.toString(2) + " \nfile: " + file.toString(), e);
+      return false;
+    }
+    return true;
+  }
 
   /**
    * Writes the content to the file.
