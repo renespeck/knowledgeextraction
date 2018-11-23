@@ -36,8 +36,8 @@ public class StanfordPipe {
 
   /** An instance of of {@link edu.stanford.nlp.pipeline.StanfordCoreNLP}. */
   protected StanfordCoreNLP pipeline = null;
-
   protected static StanfordPipe stanfordPipe = null;
+
 
   public static StanfordPipe instance() {
     if (stanfordPipe == null) {
@@ -46,22 +46,24 @@ public class StanfordPipe {
     return stanfordPipe;
   }
 
-  /**
-   *
-   * Constructor.
-   *
-   */
-  public StanfordPipe() {
-    this(0);
+  public static StanfordPipe newInstance() {
+    stanfordPipe = new StanfordPipe();
+    return stanfordPipe;
   }
 
-  /**
-   *
-   * Constructor.
-   *
-   * @param numberOfThreads
-   */
-  public StanfordPipe(final int numberOfThreads) {
+  public static StanfordPipe instance(final Properties properties) {
+    if (stanfordPipe == null) {
+      stanfordPipe = new StanfordPipe(properties);
+    }
+    return stanfordPipe;
+  }
+
+  public static StanfordPipe newInstance(final Properties properties) {
+    stanfordPipe = new StanfordPipe(properties);
+    return stanfordPipe;
+  }
+
+  public StanfordPipe() {
 
     final Properties props = new Properties();
     props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse");
@@ -71,11 +73,14 @@ public class StanfordPipe {
     props.setProperty("ner.model",
         "edu/stanford/nlp/models/ner/english.all.3class.distsim.crf.ser.gz");
 
-    if (numberOfThreads > 0) {
-      props.put("threads", String.valueOf(numberOfThreads));
-    }
-
+    // if (numberOfThreads > 0) {
+    // props.put("threads", String.valueOf(numberOfThreads));
+    // }
     pipeline = new StanfordCoreNLP(props);
+  }
+
+  public StanfordPipe(final Properties properties) {
+    pipeline = new StanfordCoreNLP(properties);
   }
 
   /**
@@ -90,7 +95,7 @@ public class StanfordPipe {
     for (final CoreMap sentence : list) {
       final List<CoreLabel> labels = sentence.get(CoreAnnotations.TokensAnnotation.class);
       String originalSentence = Sentence.listToOriginalTextString(labels);
-      if (list.indexOf(sentence) != (list.size() - 1)) {
+      if (list.indexOf(sentence) != list.size() - 1) {
         originalSentence = originalSentence.replaceAll("\\s+$", "");
       }
       sentenceIndex.put(sentenceIndex.size(), originalSentence);
@@ -102,7 +107,7 @@ public class StanfordPipe {
     Annotation document = null;
     if (pipeline == null) {
       LOG.error("Stanford pipeline null.");
-    } else if ((text != null) && (text.trim().length() > 0)) {
+    } else if (text != null && text.trim().length() > 0) {
       document = new Annotation(text);
       pipeline.annotate(document);
     } else {
@@ -135,7 +140,7 @@ public class StanfordPipe {
 
     List<IndexedWord> list = null;
     list = sg.getShortestUndirectedPathNodes(s, sg.getFirstRoot());
-    if ((list != null) && !list.isEmpty()) {
+    if (list != null && !list.isEmpty()) {
       shortestPath.addAll(list);
     }
     shortestPath.remove(sg.getFirstRoot()); // will be added again in the next step
@@ -143,7 +148,7 @@ public class StanfordPipe {
 
     list = null;
     list = sg.getShortestUndirectedPathNodes(sg.getFirstRoot(), t);
-    if ((list != null) && !list.isEmpty()) {
+    if (list != null && !list.isEmpty()) {
       shortestPath.addAll(list);
     }
     shortestPath.remove(t);
@@ -216,7 +221,7 @@ public class StanfordPipe {
   }
 
   public IndexedWord getRoot(final SemanticGraph s) {
-    if ((s == null) || (s.getRoots().size() < 1)) {
+    if (s == null || s.getRoots().size() < 1) {
       return null;
     }
     return s.getRoots().iterator().next();

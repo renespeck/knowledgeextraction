@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -25,6 +26,11 @@ public class StanfordPipeExtended extends StanfordPipe {
   }
   protected static StanfordPipeExtended stanfordPipe = null;
 
+  /**
+   * Creates a new instance if needed with default properties.
+   *
+   * @return a StanfordPipeExtended instance
+   */
   public static StanfordPipeExtended instance() {
     if (stanfordPipe == null) {
       stanfordPipe = new StanfordPipeExtended();
@@ -32,8 +38,44 @@ public class StanfordPipeExtended extends StanfordPipe {
     return stanfordPipe;
   }
 
+  /**
+   * Creates a new instance with default properties.
+   *
+   * @return a StanfordPipeExtended instance
+   */
+  public static StanfordPipeExtended newInstance() {
+    stanfordPipe = new StanfordPipeExtended();
+    return stanfordPipe;
+  }
+
+  /**
+   * Creates a new instance if needed with default properties.
+   *
+   * @return a StanfordPipeExtended instance
+   */
+  public static StanfordPipeExtended instance(final Properties properties) {
+    if (stanfordPipe == null) {
+      stanfordPipe = new StanfordPipeExtended(properties);
+    }
+    return stanfordPipe;
+  }
+
+  /**
+   * Creates a new instance with default properties.
+   *
+   * @return a StanfordPipeExtended instance
+   */
+  public static StanfordPipeExtended newInstance(final Properties properties) {
+    stanfordPipe = new StanfordPipeExtended(properties);
+    return stanfordPipe;
+  }
+
   public StanfordPipeExtended() {
     super();
+  }
+
+  public StanfordPipeExtended(final Properties properties) {
+    super(properties);
   }
 
   /**
@@ -54,7 +96,7 @@ public class StanfordPipeExtended extends StanfordPipe {
       LOG.warn("No root found in the graph.");
     }
 
-    if ((root != null) && posProperNounTags.contains(root.tag())) {
+    if (root != null && posProperNounTags.contains(root.tag())) {
       root = null;
 
       LOG.warn(
@@ -109,7 +151,7 @@ public class StanfordPipeExtended extends StanfordPipe {
     for (final Iterator<IndexedWord> iter = sp.iterator(); iter.hasNext();) {
       final IndexedWord word = iter.next();
 
-      if ((word.index() == s.index()) || (word.index() == t.index())) {
+      if (word.index() == s.index() || word.index() == t.index()) {
         prevNERType = word.ner();
       }
 
