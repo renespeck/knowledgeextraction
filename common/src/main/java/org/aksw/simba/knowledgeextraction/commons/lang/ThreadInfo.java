@@ -23,6 +23,23 @@ public class ThreadInfo {
     return Thread.activeCount();
   }
 
+
+  /**
+   * Returns the number of processors available to the Java virtual machine.
+   *
+   * <p>
+   * This value may change during a particular invocation of the virtual machine. Applications that
+   * are sensitive to the number of available processors should therefore occasionally poll this
+   * property and adjust their resource usage appropriately.
+   * </p>
+   *
+   * @return the maximum number of processors available to the virtual machine; never smaller than
+   *         one
+   */
+  public static int getAvailableProcessors() {
+    return Runtime.getRuntime().availableProcessors();
+  }
+
   /**
    * Returns the current number of live threads including both daemon and non-daemon threads.
    *
