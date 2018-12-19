@@ -10,7 +10,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
- * Gets FOX properties stored in the {@link #CFG_FILE} file.
+ * Gets FOX properties.
  *
  * @author rspeck
  *
@@ -21,7 +21,6 @@ public class PropertiesLoader {
 
   protected static Properties properties = null;
   protected static String propertiesFile = "";
-
 
   /**
    * Loads a given file to use as properties.

@@ -9,22 +9,17 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class CfgManager {
-
-  public static String cfgFolder = "config";
-
   public static final Logger LOG = LogManager.getLogger(CfgManager.class);
 
-  /**
-   *
-   * @param className
-   * @return
-   */
-  public static XMLConfiguration getCfg(final String className) {
+  protected String cfgFolder = null;
 
+  public CfgManager(final String cfgFolder) {
+    this.cfgFolder = cfgFolder;
+  }
+
+  public XMLConfiguration getCfg(final String className) {
     final String file = cfgFolder + File.separator + className + ".xml";
-
     if (FileUtil.fileExists(file)) {
-
       try {
         return new XMLConfiguration(file);
       } catch (final ConfigurationException e) {
@@ -36,12 +31,7 @@ public class CfgManager {
     return null;
   }
 
-  /**
-   *
-   * @param className
-   * @return
-   */
-  public static XMLConfiguration getCfg(final Class<?> classs) {
-    return CfgManager.getCfg(classs.getName());
+  public XMLConfiguration getCfg(final Class<?> classs) {
+    return this.getCfg(classs.getName());
   }
 }
