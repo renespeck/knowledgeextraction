@@ -6,7 +6,7 @@
 
 	<groupId>org.aksw.simba.knowledgeextraction</groupId>
 	<artifactId>knowledgeextraction-parent</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -26,7 +26,8 @@
 	<modules>
 
 		<module>common</module>
-		<!-- <module>lykoi</module> <module>ocelot</module> <module>fox</module> -->
+		 <module>lykoi</module> 
+         <!--<module>ocelot</module> <module>fox</module> -->
 	</modules>
 
 	<repositories>
