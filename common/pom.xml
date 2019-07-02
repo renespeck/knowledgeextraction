@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.aksw.simba.knowledgeextraction</groupId>
 		<artifactId>knowledgeextraction-parent</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2</version> 
 	</parent>
 	<artifactId>commons</artifactId>
 
@@ -13,7 +13,9 @@
 		<!-- <system.libs>${project.basedir}/lib</system.libs> -->
 		<system.resources>${project.basedir}/src/main/resources</system.resources>
 		<httpcomponents.version>4.4</httpcomponents.version>
-		<stanford.version>3.6.0</stanford.version>
+		<!-- <stanford.version>3.6.0</stanford.version> -->
+		<stanford.version>3.9.2</stanford.version>
+
 	</properties>
 
 	<dependencies>		<!-- mongo-java-driver -->
@@ -72,6 +74,12 @@
 			<artifactId>stanford-corenlp</artifactId>
 			<version>${stanford.version}</version>
 			<classifier>models</classifier>
+		</dependency>
+		<dependency>
+			<groupId>edu.stanford.nlp</groupId>
+			<artifactId>stanford-corenlp</artifactId>
+			<version>${stanford.version}</version>
+			<classifier>models-german</classifier>
 		</dependency>
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
