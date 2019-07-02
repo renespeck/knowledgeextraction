@@ -18,7 +18,7 @@ import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.IndexedWord;
-import edu.stanford.nlp.ling.Sentence;
+import edu.stanford.nlp.ling.SentenceUtils;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.semgraph.SemanticGraph;
@@ -37,7 +37,6 @@ public class StanfordPipe {
   /** An instance of of {@link edu.stanford.nlp.pipeline.StanfordCoreNLP}. */
   protected StanfordCoreNLP pipeline = null;
   protected static StanfordPipe stanfordPipe = null;
-
 
   public static StanfordPipe instance() {
     if (stanfordPipe == null) {
@@ -94,7 +93,7 @@ public class StanfordPipe {
     final List<CoreMap> list = getSentences(text);
     for (final CoreMap sentence : list) {
       final List<CoreLabel> labels = sentence.get(CoreAnnotations.TokensAnnotation.class);
-      String originalSentence = Sentence.listToOriginalTextString(labels);
+      String originalSentence = SentenceUtils.listToOriginalTextString(labels);
       if (list.indexOf(sentence) != list.size() - 1) {
         originalSentence = originalSentence.replaceAll("\\s+$", "");
       }
