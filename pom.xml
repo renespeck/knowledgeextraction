@@ -26,7 +26,7 @@
 	<modules>
 
 		<module>common</module>
-		 <module>lykoi</module> 
+		<!-- <module>lykoi</module> -->
          <!--<module>ocelot</module> <module>fox</module> -->
 	</modules>
 
