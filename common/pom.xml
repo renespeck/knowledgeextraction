@@ -12,7 +12,7 @@
 	<properties>
 		<!-- <system.libs>${project.basedir}/lib</system.libs> -->
 		<system.resources>${project.basedir}/src/main/resources</system.resources>
-		<httpcomponents.version>4.4</httpcomponents.version>
+		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<!-- <stanford.version>3.6.0</stanford.version> -->
 		<stanford.version>3.9.2</stanford.version>
 
